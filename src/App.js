@@ -10,6 +10,12 @@ const choices = [
   {id: 3, name: 'scissors', icon: <Scissors />}
 ];
 
+const gameStates = [
+  {id: 1, name: 'win', message: 'You Win!!'},
+  {id: 2, name: 'lose', message: 'You Lose.'},
+  {id: 3, name: 'draw', message: 'You Drew!!'}
+];
+
 export default function App() {
 
 // Handle wins + losses
@@ -20,14 +26,14 @@ export default function App() {
   const [computerChoice, setComputerChoice] = useState(null);
   const [wins, setWins] = useState(0);
   const [losses, setLosses] = useState(0);
-  const [gameState, setGameState] = useState(null);
+  const [gameState, setGameState] = useState(null); // win/lose/draw
 
   function handleUserChoice(choice) {
     const chosenChoice = choices.find(c => c.id === choice);
     setUserChoice(chosenChoice);
 
     // determine game state
-    setGameState('win');
+    setGameState(gameStates.find(gc => gc.id === 1));
   }
 
   useEffect(() => {
@@ -56,13 +62,13 @@ export default function App() {
       </div>
 
       {/* the popup to show win/loss/draw */}
-      <div className="game-state">
+      {gameState && <div className={`game-state ${gameState.name}`}>
         <div className='game-state-content'>
-          <p>User's Icon</p>
-          <p>You Won!!</p>
-          <p>Computer's Icon</p>
+          <p>{userChoice.icon}</p>
+          <p>{gameState.message}</p>
+          <p>{computerChoice.icon}</p>
         </div>
-      </div>
+      </div>}
 
       <div className="choices">
         {/* choices captions */}
