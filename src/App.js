@@ -5,9 +5,9 @@ import Scissors from './icons/Scissors';
 import './App.css';
 
 const choices = [
-  {id: 1, name: 'rock', icon: <Rock />},
-  {id: 2, name: 'paper', icon: <Paper />},
-  {id: 3, name: 'scissors', icon: <Scissors />}
+  { id: 1, name: 'rock', icon: <Rock />, lossesTo: 2 },
+  { id: 2, name: 'paper', icon: <Paper />, lossesTo: 3 },
+  { id: 3, name: 'scissors', icon: <Scissors />, lossesTo: 1 }
 ];
 
 const gameStates = [
@@ -31,9 +31,21 @@ export default function App() {
   function handleUserChoice(choice) {
     const chosenChoice = choices.find(c => c.id === choice);
     setUserChoice(chosenChoice);
+    console.log(chosenChoice.lossesTo, computerChoice.id);
+    let stateId;
+    if(chosenChoice.lossesTo === computerChoice.id) {
+      setLosses((losses) => losses + 1);
+      stateId = 2;
+    } else if (chosenChoice.id === computerChoice.id) {
+      stateId = 3;
+    } else {
+      setWins((wins) => wins + 1);
+      stateId = 1;
+    }
 
     // determine game state
-    setGameState(gameStates.find(gc => gc.id === 1));
+    const currGameState = gameStates.find(gs => gs.id === stateId);
+    setGameState(currGameState);
   }
 
   useEffect(() => {
