@@ -12,8 +12,14 @@ const choices = [
 
 export default function App() {
 
+// Handle wins + losses
+// determine the winner
+// reset the game
+
   const [userChoice, setUserChoice] = useState(null);
   const [computerChoice, setComputerChoice] = useState(null);
+  const [wins, setWins] = useState(0);
+  const [losses, setLosses] = useState(0);
 
   function handleUserChoice(choice) {
     const chosenChoice = choices.find(c => c.id === choice);
@@ -34,13 +40,13 @@ export default function App() {
         {/* wins vs losses stats */}
         <div className="wins-losses">
           <div className="wins">
-            <span className="number">0</span>
-            <span className="text">Wins</span>
+            <span className="number">{wins}</span>
+            <span className="text">{wins === 1 ? 'Win' : 'Wins'}</span>
           </div>
 
           <div className="losses">
-            <span className="number">0</span>
-            <span className="text">Losses</span>
+            <span className="number">{losses}</span>
+            <span className="text">{losses === 1 ? 'Loss' : 'Losses'}</span>
           </div>
         </div>
       </div>
