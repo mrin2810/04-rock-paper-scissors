@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Rock from './icons/Rock';
 import Paper from './icons/Paper';
 import Scissors from './icons/Scissors';
 import './App.css';
 
+const choices = [
+  {id: 1, name: 'rock', icon: <Rock />},
+  {id: 2, name: 'paper', icon: <Paper />},
+  {id: 3, name: 'scissors', icon: <Scissors />}
+];
+
 export default function App() {
+
+  const [userChoice, setUserChoice] = useState(null);
+
+  function handleUserChoice(choice) {
+    const chosenChoice = choices.find(c => c.id === choice);
+    setUserChoice(chosenChoice);
+  }
+
   return (
     <div className="app">
       {/* information goes here */}
@@ -36,15 +50,13 @@ export default function App() {
 
         {/* buttons for my choice */}
         <div>
-          <button className="rock">
-            <Rock />
-          </button>
-          <button className="paper">
-            <Paper />
-          </button>
-          <button className="scissors">
-            <Scissors />
-          </button>
+          {choices.map((choice) => {
+            return (
+              <button key={choice.id} className={choice.name} onClick={() => handleUserChoice(choice.id)}>
+                {choice.icon}
+              </button>
+            )
+          })}
         </div>
 
         <div className="vs">vs</div>
