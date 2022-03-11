@@ -20,10 +20,14 @@ export default function App() {
   const [computerChoice, setComputerChoice] = useState(null);
   const [wins, setWins] = useState(0);
   const [losses, setLosses] = useState(0);
+  const [gameState, setGameState] = useState(null);
 
   function handleUserChoice(choice) {
     const chosenChoice = choices.find(c => c.id === choice);
     setUserChoice(chosenChoice);
+
+    // determine game state
+    setGameState('win');
   }
 
   useEffect(() => {
@@ -52,7 +56,13 @@ export default function App() {
       </div>
 
       {/* the popup to show win/loss/draw */}
-      {/* <div className="game-state"></div> */}
+      <div className="game-state">
+        <div className='game-state-content'>
+          <p>User's Icon</p>
+          <p>You Won!!</p>
+          <p>Computer's Icon</p>
+        </div>
+      </div>
 
       <div className="choices">
         {/* choices captions */}
