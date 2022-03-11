@@ -26,7 +26,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Varela Round', sans-serif;
+  font-family: "Varela Round", sans-serif;
 }
 
 .info {
@@ -48,7 +48,7 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  font-family: 'Varela Round', sans-serif;
+  font-family: "Varela Round", sans-serif;
   font-size: 16px;
   text-align: center;
   line-height: 1;
@@ -83,7 +83,7 @@ h6 {
   grid-template-columns: 1fr 1fr 1fr;
   text-align: center;
   grid-gap: 20px;
-  font-family: 'Varela Round', sans-serif;
+  font-family: "Varela Round", sans-serif;
   font-size: 18px;
   color: #5f99f0;
 }
@@ -168,7 +168,7 @@ h6 {
   justify-content: center;
   font-size: 24px;
   line-height: 1.3;
-  font-family: 'Varela Round', sans-serif;
+  font-family: "Varela Round", sans-serif;
 }
 
 .game-state.win > div {
@@ -221,8 +221,8 @@ h6 {
 }
 
 .game-state button {
-  margin-bottom: -5%;
-  width: 100%;
+  top: 75%;
+  width: 35%;
   display: block;
   border: none;
   border-radius: 10px;
@@ -232,4 +232,5 @@ h6 {
   flex-shrink: 1;
   background: #fa65ff;
   color: #fdedfd;
+  position: absolute;
 }

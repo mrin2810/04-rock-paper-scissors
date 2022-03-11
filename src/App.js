@@ -3,6 +3,9 @@ import Rock from './icons/Rock';
 import Paper from './icons/Paper';
 import Scissors from './icons/Scissors';
 import './App.css';
+import WinsAndLosses from './components/WinsAndLosses';
+import PopUp from './components/PopUp';
+import Choices from './components/Choices';
 
 const choices = [
   { id: 1, name: 'rock', icon: <Rock />, lossesTo: 2 },
@@ -17,11 +20,7 @@ const gameStates = [
 ];
 
 export default function App() {
-
-// Handle wins + losses
-// determine the winner
-// reset the game
-
+  
   const [userChoice, setUserChoice] = useState(null);
   const [computerChoice, setComputerChoice] = useState(null);
   const [wins, setWins] = useState(0);
@@ -48,9 +47,14 @@ export default function App() {
     setGameState(currGameState);
   }
 
+  function startAgain() {
+    setComputerChoice(choices[Math.floor(Math.random()*choices.length)]);
+    setGameState(null);
+    setUserChoice(null);
+  }
+
   useEffect(() => {
-    const randomChoice = choices[Math.floor(Math.random()*choices.length)];
-    setComputerChoice(randomChoice);
+    startAgain();
   }, []);
 
   return (
@@ -60,52 +64,20 @@ export default function App() {
         <h2>Rock. Paper. Scissors</h2>
 
         {/* wins vs losses stats */}
-        <div className="wins-losses">
-          <div className="wins">
-            <span className="number">{wins}</span>
-            <span className="text">{wins === 1 ? 'Win' : 'Wins'}</span>
-          </div>
-
-          <div className="losses">
-            <span className="number">{losses}</span>
-            <span className="text">{losses === 1 ? 'Loss' : 'Losses'}</span>
-          </div>
-        </div>
+        <WinsAndLosses wins={wins} losses={losses} />
       </div>
 
       {/* the popup to show win/loss/draw */}
-      {gameState && <div className={`game-state ${gameState.name}`}>
-        <div className='game-state-content'>
-          <p>{userChoice.icon}</p>
-          <p>{gameState.message}</p>
-          <p>{computerChoice.icon}</p>
-        </div>
-      </div>}
+      {gameState && (
+        <PopUp 
+          gameState={gameState} 
+          userChoice={userChoice} 
+          computerChoice={computerChoice} 
+          startAgain={startAgain} 
+        />
+      )}
 
-      <div className="choices">
-        {/* choices captions */}
-        <div>You</div>
-        <div />
-        <div>Computer</div>
-
-        {/* buttons for my choice */}
-        <div>
-          {choices.map((choice) => {
-            return (
-              <button key={choice.id} className={choice.name} onClick={() => handleUserChoice(choice.id)}>
-                {choice.icon}
-              </button>
-            )
-          })}
-        </div>
-
-        <div className="vs">vs</div>
-
-        {/* show the computer's choice */}
-        <div>
-          <button className="computer-choice">?</button>
-        </div>
-      </div>
+      <Choices choices={choices} handleUserChoice={handleUserChoice} />
     </div>
   );
 }
